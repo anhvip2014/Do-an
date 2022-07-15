@@ -64,7 +64,7 @@ public class HomePage extends BasePage {
     
 
     public void clickOnBtnSearchToursForSearch(){
-        WebElement btnSearchTours = keyword.findElement(By.xpath("//button[@id='flights-search']"));
+        WebElement btnSearchTours = keyword.findElement(By.xpath("//div[@id='tours']//button[@id='submit']"));
         keyword.clickWithOutScroll(btnSearchTours);
     }
 
@@ -131,7 +131,8 @@ public class HomePage extends BasePage {
     }
 
     public void clickOnBtnTravellersOnTours(){
-        keyword.clickWithOutScroll(btnRoomAndTravellers);
+        WebElement btnTravellersOnTuors = keyword.findElement(By.xpath("//div[@id='tours']//a"));
+        keyword.clickWithOutScroll(btnTravellersOnTuors);
     }
 
 

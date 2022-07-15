@@ -15,6 +15,7 @@ import com.example.pages.Pages.HomePage;
 import com.example.pages.Pages.LoginPage;
 import com.example.pages.Pages.SearchFlightsPage;
 import com.example.pages.Pages.SearchHotelsPage;
+import com.example.pages.Pages.SearchToursPage;
 import com.example.tests.BaseTest;
 
 @Listeners(ReportListener.class)
@@ -79,8 +80,11 @@ public class LoginPageTest extends BaseTest {
          homePage.selectToDatePickerTuorDate(tourday);
          homePage.clickOnBtnTravellersOnTours();
          homePage.sendkeyToTxtAdultsTours(Adults);
-         homePage.sendkeyToTxtAdultsTours(childs);
+         homePage.sendkeyToTxtChildTours(childs);
          homePage.clickOnBtnSearchToursForSearch();
+         SearchToursPage searchToursPage = new SearchToursPage(driver);
+         Assert.assertTrue(searchToursPage.SearchSuccess(Destination, Adults, childs));
+
      }
 
     }
