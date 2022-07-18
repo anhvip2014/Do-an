@@ -6,10 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By.ByXPath;
 
+import com.example.core.keyword.WebKeyword.chooseTypeOfSelect;
 import com.example.pages.BasePage;
-import com.github.dockerjava.api.model.Driver;
 
-import javafx.scene.control.SplitPane.Divider;
+
+
 
 import org.openqa.selenium.Keys;
 import java.util.concurrent.TimeUnit;
@@ -159,8 +160,8 @@ public class HomePage extends BasePage {
     }
 
     public void clickOnBtnChildsIncToPlusRoom(){
-         WebElement btnChildsQTYInc= keyword.findElement(By.xpath("//*[@id='childs']//preceding::div[@class='qtyDec'][1]"));
-        keyword.click(btnChildsQTYInc);
+         WebElement btnChildsQTYInc= keyword.findElement(By.xpath("//div[@class='qtyBtn d-flex align-items-center child_ages']//div[@class='qtyInc']"));
+        keyword.clickByJS(btnChildsQTYInc);
     }
 
     public void clickOnBtnChildsDecToMinusRoom(){
@@ -169,7 +170,7 @@ public class HomePage extends BasePage {
     }
 
     public void clickOnBtnSearch(){
-               keyword.click(btnSearch);
+               keyword.clickByJS(btnSearch);
    }
 
    public void clickOnPassengers(){
@@ -307,5 +308,15 @@ public class HomePage extends BasePage {
     }
 
 
+    public void selectChildsAge(String Age1,String Age2){
+        
+        WebElement ChidlAge1=keyword.findElement(By.xpath("//select[@id='ages1']"));
+        WebElement ChidlAge2=keyword.findElement(By.xpath("//select[@id='ages2']"));
+ 
+        keyword.setValueForSelectElement(ChidlAge1, chooseTypeOfSelect.selectByValue, Age1);
+        keyword.setValueForSelectElement(ChidlAge2,chooseTypeOfSelect.selectByValue, Age2);
+
+
+    }
 
 }

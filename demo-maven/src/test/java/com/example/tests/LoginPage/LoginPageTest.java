@@ -9,13 +9,16 @@ import org.testng.annotations.Test;
 import com.example.core.datadriven.DataForLogin;
 import com.example.core.datadriven.DataForSearch;
 import com.example.core.utils.listener.ReportListener;
-import com.example.pages.home;
+
 import com.example.pages.Pages.DashBoardPage;
 import com.example.pages.Pages.HomePage;
 import com.example.pages.Pages.LoginPage;
 import com.example.pages.Pages.SearchFlightsPage;
-import com.example.pages.Pages.SearchHotelsPage;
 import com.example.pages.Pages.SearchToursPage;
+import com.example.pages.Pages.hotles.BookingHoltels;
+import com.example.pages.Pages.hotles.BookingInvoice;
+import com.example.pages.Pages.hotles.DetailsHotelPage;
+import com.example.pages.Pages.hotles.SearchHotelsPage;
 import com.example.tests.BaseTest;
 
 @Listeners(ReportListener.class)
@@ -36,8 +39,16 @@ public class LoginPageTest extends BaseTest {
 
     }
 
-     @Test(testName = "Verify Search hotels Success ",dataProvider = "DataForSearchHotel",dataProviderClass = DataForSearch.class)
-     public void verifySearchHotelsSuccess(String cityname,String checkindate,String checkoutdate,String room,String Adults,String childs) throws Exception   
+     @Test(testName = "Verify booking hotels E2E ",dataProvider = "DataForSearchHotel",dataProviderClass = DataForSearch.class)
+     public void verifyBookingHotelsE2E(String cityname,String checkindate,String checkoutdate,
+                                            String room,String Adults,String childs,String Age1,
+                                            String Age2,String FirstName,String LastName,String Email,
+                                            String Phone,String Address,String valueCountry,String valueNationality,
+                                            String FirstNameTraveller1,String LastNameTraveller1,
+                                            String TitleValueTraveller1,String FirstNameTraveller2,
+                                            String LastNameTraveller2,String TitleValueTraveller2,
+                                            String FirstNameChild1,String LastNameChild1,String valueAge1,
+                                            String FirstNameChild2,String LastNameChild2,String valueAge2) throws Exception   
      {
          HomePage homePage= new HomePage(driver);
          homePage.sendkeyToTxtSearch(cityname);
@@ -46,10 +57,25 @@ public class LoginPageTest extends BaseTest {
          homePage.clickOnBtnRoomAndTravellers();
          homePage.sendkeyTotxtRoom(room);
          homePage.sendkeyTotxtAdults(Adults); 
-         homePage.sendkeyTotxtchidls(childs);
+         homePage.clickOnBtnChildsIncToPlusRoom();
+         homePage.clickOnBtnChildsIncToPlusRoom();
+         homePage.selectChildsAge(Age1, Age2);
          homePage.clickOnBtnSearch();
          SearchHotelsPage searchHotelsPage = new SearchHotelsPage(driver);
-         Assert.assertTrue(searchHotelsPage.SearchSuccess(cityname, Adults, childs, room));
+         searchHotelsPage.clickOnImgToNavigateDetailsHotelsPage();
+         DetailsHotelPage detailsHotelPage = new DetailsHotelPage(driver);
+         detailsHotelPage.clickOnBookHotels();
+         BookingHoltels bookingHoltels = new BookingHoltels(driver);
+         bookingHoltels.sendKeyToPersonalInformation(FirstName, LastName, Email, Phone,Address,valueCountry, valueNationality);
+         bookingHoltels.sendKeyToFirstTraveller(FirstNameTraveller1, LastNameTraveller1, TitleValueTraveller1);
+         bookingHoltels.sendKeyToSecondTraveller(FirstNameTraveller2, LastNameTraveller2, TitleValueTraveller2);
+         bookingHoltels.sendkeyToFirstChild(FirstNameChild1, LastNameChild1, valueAge1);
+         bookingHoltels.sendkeyToSecondChild(FirstNameChild2, LastNameChild2, valueAge2);
+         bookingHoltels.clickOnPayLaterBtn();
+         bookingHoltels.clickOnAgreeChb();
+         bookingHoltels.clickOnConfirmBookingBtn();
+         BookingInvoice bookingInvoice = new BookingInvoice(driver);
+         Assert.assertTrue(bookingInvoice.isBookingInvoiceSuccess(Address, Phone, Email));
 
      }
 
